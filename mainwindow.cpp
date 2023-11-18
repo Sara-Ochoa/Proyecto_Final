@@ -59,8 +59,10 @@ void MainWindow::on_BtnJugar_clicked()
     QImage imagenF(":/Imagenes/textura1.jpg");
     QBrush brochaF(imagenF);
     ui->graphicsView->setBackgroundBrush(brochaF);
-    botonJugar->deleteLater();
-    botonSalir->deleteLater();
+    //botonJugar->deleteLater();
+    //botonSalir->deleteLater();
+    botonJugar->hide();
+    botonSalir->hide();
 
     string linea;
     ifstream archivoLectura;
