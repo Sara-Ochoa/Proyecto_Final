@@ -4,9 +4,13 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QPixmap>
+#include <QPainter>
 #include <QPushButton>
 #include "portal.h"
 #include <QList>
+#include <QKeyEvent>
+
+#include "jugador.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,8 +26,8 @@ public:
 
 private slots:
     void on_BtnSalir_clicked();
-
     void on_BtnJugar_clicked();
+    void keyPressEvent(QKeyEvent *ev);
 
 private:
     Ui::MainWindow *ui;
@@ -35,5 +39,7 @@ private:
     QPushButton *botonSalir;
     QPushButton *botonJugar;
     QList<Portal*> portales;
+
+    Jugador *jugador;
 };
 #endif // MAINWINDOW_H

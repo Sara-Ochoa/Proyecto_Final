@@ -59,6 +59,7 @@ void MainWindow::on_BtnJugar_clicked()
     QImage imagenF(":/Imagenes/textura1.jpg");
     QBrush brochaF(imagenF);
     ui->graphicsView->setBackgroundBrush(brochaF);
+    scene2->setSceneRect(0,0,769,529);
     //botonJugar->deleteLater();
     //botonSalir->deleteLater();
     botonJugar->hide();
@@ -88,5 +89,28 @@ void MainWindow::on_BtnJugar_clicked()
             scene2->addItem(portales.back());
         }
     }
+
+    jugador = new Jugador();
+    scene2->addItem(jugador);
+    jugador->posicion(100,100);
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *ev)
+{
+    if(ev->key()==Qt::Key_W){
+        jugador->setFilas(525);
+        jugador->moverArriba();
+    }
+    else if(ev->key()==Qt::Key_S){
+        jugador->moverAbajo();
+        jugador->setFilas(0);
+    }
+    else if(ev->key()==Qt::Key_D){
+        jugador->moverDerecha();
+        jugador->setFilas(375);
+    }
+    else if(ev->key()==Qt::Key_A){
+        jugador->moverIzquierda();
+        jugador->setFilas(200);
+    }
+}

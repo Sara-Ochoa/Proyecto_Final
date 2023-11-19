@@ -4,5 +4,6 @@
         <file>Imagenes/textura1.jpg</file>
         <file>Imagenes/fondo.jpg</file>
         <file>Imagenes/portal.png</file>
+        <file>Imagenes/Morty.png</file>
     </qresource>
 </RCC>
