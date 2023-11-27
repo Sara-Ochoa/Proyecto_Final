@@ -20,9 +20,12 @@ private:
     int velocidad;
     float filas,columnas;
     float ancho,alto;
+    //int w,h;
+    QString path;
 
 public:
     explicit Jugador(QObject *parent = nullptr);
+    //Jugador(int w, int h);
 
     QTimer *timer;
     QPixmap *pixmap;
@@ -34,6 +37,7 @@ public:
     void moverAbajo();
     void moverDerecha();
     void moverIzquierda();
+    void saltar();
     void posicion(int x, int y);
     void disparar();
     void recogerVida();
@@ -43,6 +47,9 @@ public:
 
     float getFilas() const;
     void setFilas(float newFilas);
+
+    QString getPath() const;
+    void setPath(const QString &newPath);
 
 signals:
 

@@ -1,9 +1,14 @@
 #include "portal.h"
 #include <QPainter>
 #include <QPixmap>
+#include <random>
 
-Portal::Portal(int x, int y, int r)
+
+using namespace std;
+
+Portal::Portal(int x, int y,  int r)
 {
+
     posx=x;
     posy=y;
     radio=r;
@@ -19,4 +24,40 @@ void Portal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 {
     QPixmap pixmap(":/Imagenes/portal.png");
     painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+
+    /*
+    mt19937 generador(random_device{}());
+    uniform_int_distribution<int> distribucion(1, 4);
+    int numeroAleatorio = distribucion(generador);
+
+    if(numeroAleatorio ==1){
+        QPixmap pixmap(":/Imagenes/tipo1.png");
+        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    }
+    else if(numeroAleatorio==2){
+        QPixmap pixmap(":/Imagenes/tipo2.png");
+        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    }
+    else if(numeroAleatorio==3){
+        QPixmap pixmap(":/Imagenes/tipo3.png");
+        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    }
+    else if(numeroAleatorio==4){
+        QPixmap pixmap(":/Imagenes/portal.png");
+        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    }*/
 }
+
+/*
+#include <random>
+    mt19937 generador(random_device{}());
+    uniform_int_distribution<int> distribucion(1, 3);
+    int numeroAleatorio = distribucion(generador);
+
+if(numeroAleatorio ==1)
+*pixmap = new (:/perro1)
+else if(numeroAleatorio==2)
+*pixmap = new (:/perro2)
+else if(numeroAleatorio==3)
+*pixmap = new (:/perro2)
+*/

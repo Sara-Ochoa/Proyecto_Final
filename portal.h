@@ -8,8 +8,9 @@ class Portal: public QGraphicsItem
     int posx;
     int posy;
     int radio;
+
 public:
-    Portal(int x, int y, int r);
+    Portal(int x, int y,  int r);
     void abrirPortal();
     void llevarInicio();
     void eliminarPersonaje();

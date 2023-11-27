@@ -20,24 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
     scene1->setSceneRect(800,450,100,190);
     ui->graphicsView->scale(0.47,0.5);
 
-    botonSalir = new QPushButton("Salir", this);
-    connect(botonSalir, &QPushButton::clicked, this, &MainWindow::on_BtnSalir_clicked);
-    botonSalir->move(50,500);
 
-    botonJugar = new QPushButton("Jugar", this);
-    connect(botonJugar, &QPushButton::clicked, this, &MainWindow::on_BtnJugar_clicked);
-    botonJugar->move(50,450);
-
-
-    /*
-    scene3 = new QGraphicsScene();
-    ui->graphicsView->setScene(scene3);
-    QImage imagenF(":/Imagenes/fondo.jpg");
-    QBrush brochaF(imagenF);
-    ui->graphicsView->setBackgroundBrush(brochaF);
-    ui->graphicsView->scale(3.5,4);
-    scene3->setSceneRect(700,100,100,100);
-    */
+    ui->label->hide();
+    ui->label_2->hide();
+    ui->btn_Regresar->hide();
 }
 
 MainWindow::~MainWindow()
@@ -45,14 +31,62 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_BtnSalir_clicked()
+void MainWindow::keyPressEvent(QKeyEvent *ev)
 {
-    close();
+    if(ev->key()==Qt::Key_W){
+        jugador->setFilas(504.75);
+        jugador->moverArriba();
+    }
+    else if(ev->key()==Qt::Key_S){
+        jugador->moverAbajo();
+        jugador->setFilas(0);
+    }
+    else if(ev->key()==Qt::Key_D){
+        jugador->moverDerecha();
+        jugador->setFilas(336.5);
+    }
+    else if(ev->key()==Qt::Key_A){
+        jugador->moverIzquierda();
+        jugador->setFilas(168.25);
+    }
+}
+
+/*
+void MainWindow::keyPressEvent_N2(QKeyEvent *ev)
+{
+    if(ev->key()==Qt::Key_D){
+        jugador_N2->moverDerecha();
+        jugador_N2->setPath(":/Imagenes/Rick_Right.png");
+    }
+    else if(ev->key()==Qt::Key_A){
+        jugador_N2->moverIzquierda();
+        jugador_N2->setPath(":/Imagenes/Rick_Left.png");
+    }
+}
+*/
+
+
+void MainWindow::on_btn_Regresar_clicked()
+{
+    //ui->setupUi(this);
+    //scene1 = new QGraphicsScene();
+    ui->graphicsView->setScene(scene1);
+    QImage imagenF(":/Imagenes/portada.jpg");
+    QBrush brochaF(imagenF);
+    ui->graphicsView->setBackgroundBrush(brochaF);
+    scene1->setSceneRect(800,450,100,190);
+    ui->graphicsView->scale(0.47,0.5);
+
+    ui->label->hide();
+    ui->label_2->hide();
+    ui->btn_Jugar->show();
+    ui->btb_Instrucciones->show();
+    ui->btb_Salir->show();
+    ui->btn_Regresar->hide();
 }
 
 
-void MainWindow::on_BtnJugar_clicked()
+void MainWindow::on_btn_Jugar_clicked()
 {
     scene2 = new QGraphicsScene();
     ui->graphicsView->setScene(scene2);
@@ -60,18 +94,16 @@ void MainWindow::on_BtnJugar_clicked()
     QBrush brochaF(imagenF);
     ui->graphicsView->setBackgroundBrush(brochaF);
     scene2->setSceneRect(0,0,769,529);
-    //botonJugar->deleteLater();
-    //botonSalir->deleteLater();
-    botonJugar->hide();
-    botonSalir->hide();
-
+    ui->btn_Jugar->hide();
+    ui->btb_Instrucciones->hide();
+    ui->btb_Salir->hide();
+    ui->btn_Regresar->hide();
     string linea;
     ifstream archivoLectura;
-    archivoLectura.open("coordenadas.txt");
+    archivoLectura.open("portales.txt");
     if(archivoLectura.is_open()){
         while(getline(archivoLectura, linea)){
             int x, y, r;
-
             istringstream ss(linea);
             string token;
             int index = 0;
@@ -92,25 +124,59 @@ void MainWindow::on_BtnJugar_clicked()
 
     jugador = new Jugador();
     scene2->addItem(jugador);
-    jugador->posicion(100,100);
+    jugador->posicion(300,100);
+
+    ui->label->show();
+    ui->label_2->show();
+
+
+
+    /*
+    scene3 = new QGraphicsScene();
+    ui->graphicsView->setScene(scene3);
+    QImage imagenF(":/Imagenes/fondo.jpg");
+    QBrush brochaF(imagenF);
+    ui->graphicsView->setBackgroundBrush(brochaF);
+    ui->graphicsView->scale(3.5,4);
+    scene3->setSceneRect(700,100,100,100);
+    botonJugar->hide();
+    botonSalir->hide();
+    botonInstrucciones->hide();
+
+    ui->label->show();
+    ui->label_2->show();
+
+    jugador_N2 = new Jugador(100,100);
+    scene3->addItem(jugador_N2);
+    jugador_N2->posicion(550,160);*/
+    //perro = new Portal(700,150,100,100);
+    //scene3->addItem(perro);
+
+    //rick = new Jugador1(550,160,100,100);
+    //scene3->addItem(rick);
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *ev)
+
+void MainWindow::on_btb_Instrucciones_clicked()
 {
-    if(ev->key()==Qt::Key_W){
-        jugador->setFilas(525);
-        jugador->moverArriba();
-    }
-    else if(ev->key()==Qt::Key_S){
-        jugador->moverAbajo();
-        jugador->setFilas(0);
-    }
-    else if(ev->key()==Qt::Key_D){
-        jugador->moverDerecha();
-        jugador->setFilas(375);
-    }
-    else if(ev->key()==Qt::Key_A){
-        jugador->moverIzquierda();
-        jugador->setFilas(200);
-    }
+    scene4 = new QGraphicsScene();
+    ui->graphicsView->setScene(scene4);
+    QImage imagenF(":/Imagenes/Teclas.png");
+    QBrush brochaF(imagenF);
+    ui->graphicsView->setBackgroundBrush(brochaF);
+    scene4->setSceneRect(140,340,200,300);
+    ui->graphicsView->scale(3.5,3.5);
+    ui->label->hide();
+    ui->label_2->hide();
+    ui->btn_Jugar->hide();
+    ui->btb_Salir->hide();
+    ui->btb_Instrucciones->hide();
+    ui->btn_Regresar->show();
 }
+
+
+void MainWindow::on_btb_Salir_clicked()
+{
+    close();
+}
+

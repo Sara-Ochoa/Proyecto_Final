@@ -11,6 +11,7 @@
 #include <QKeyEvent>
 
 #include "jugador.h"
+#include "enemigo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,20 +26,31 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_BtnSalir_clicked();
-    void on_BtnJugar_clicked();
     void keyPressEvent(QKeyEvent *ev);
+    //void keyPressEvent_N2(QKeyEvent *ev);
+
+    void on_btn_Regresar_clicked();
+
+    void on_btn_Jugar_clicked();
+
+    void on_btb_Instrucciones_clicked();
+
+    void on_btb_Salir_clicked();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene1;
     QGraphicsScene *scene2;
     QGraphicsScene *scene3;
+    QGraphicsScene *scene4;
     QPixmap *fondoInicio;
     QPixmap *fondoNivel1;
-    QPushButton *botonSalir;
-    QPushButton *botonJugar;
+    //QPushButton *botonSalir;
+    //QPushButton *botonJugar;
+    //QPushButton *botonInstrucciones;
+    //QPushButton *botonRegresar;
     QList<Portal*> portales;
+    QList<Enemigo*> enemigos;
 
     Jugador *jugador;
 };

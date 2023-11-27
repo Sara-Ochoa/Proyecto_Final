@@ -1,6 +1,6 @@
-#ifndef ENEMIGO_H
-#define ENEMIGO_H
-
+/*
+#ifndef ENEMIGO1_H
+#define ENEMIGO1_H
 #include <QObject>
 #include <QGraphicsItem>
 #include <QTimer>
@@ -23,6 +23,7 @@ public:
     explicit Enemigo(QObject *parent = nullptr);
     Enemigo(int x, int y, int v, int p);
     Enemigo(int x, int y, int v);
+
     QTimer *timer;
     QPixmap *pixmap;
 
@@ -47,4 +48,5 @@ public slots:
     void Actualizacion();
 };
 
-#endif // ENEMIGO_H
+#endif // ENEMIGO1_H
+*/
