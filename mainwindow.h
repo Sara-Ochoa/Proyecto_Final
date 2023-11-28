@@ -45,12 +45,9 @@ private:
     QGraphicsScene *scene4;
     QPixmap *fondoInicio;
     QPixmap *fondoNivel1;
-    //QPushButton *botonSalir;
-    //QPushButton *botonJugar;
-    //QPushButton *botonInstrucciones;
-    //QPushButton *botonRegresar;
     QList<Portal*> portales;
     QList<Enemigo*> enemigos;
+    Enemigo *perro;
 
     Jugador *jugador;
 };

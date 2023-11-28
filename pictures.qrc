@@ -6,11 +6,11 @@
         <file>Imagenes/portal.png</file>
         <file>Imagenes/Morty.png</file>
         <file>Imagenes/Teclas.png</file>
-        <file>Imagenes/tipo1.png</file>
-        <file>Imagenes/tipo2.png</file>
-        <file>Imagenes/tipo3.png</file>
         <file>Imagenes/Butch.png</file>
         <file>Imagenes/Rick_Right.png</file>
         <file>Imagenes/Rick_Left.png</file>
+        <file>Imagenes/dogs1.png</file>
+        <file>Imagenes/dogs2.png</file>
+        <file>Imagenes/dogs3.png</file>
     </qresource>
 </RCC>

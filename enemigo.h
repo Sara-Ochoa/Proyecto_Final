@@ -34,6 +34,7 @@ public:
     void recibirDano();
     int getSalud() const;
     void setSalud(int newSalud);
+    void posicion(int x, int y);
 
     QString getImagen() const;
     void setImagen(const QString &newImagen);

@@ -9,11 +9,12 @@ Enemigo::Enemigo(QObject *parent) : QObject{parent}
     timer = new QTimer();
     columnas = 0;
     filas = 0;
+    imagen = ":/Imagenes/dogs2.png";
     pixmap = new QPixmap(imagen);
 
     //dimensiones de cada una de las imagenes
-    ancho = 150;
-    alto = 300;
+    ancho = 50;
+    alto = 75;
 
     timer->start(250); //modifica la velocidad en que itera entre las imagenes
     connect(timer, &QTimer::timeout, this,&Enemigo::Actualizacion);
@@ -71,16 +72,16 @@ void Enemigo::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     int numeroAleatorio = distribucion(generador);
 
     if(numeroAleatorio ==1){
-        setImagen(":/Imagenes/tipo1.png");
+        setImagen(":/Imagenes/dogs1.png");
         //settearle los puntos
         painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
     }
     else if(numeroAleatorio==2){
-        setImagen(":/Imagenes/tipo2.png");
+        setImagen(":/Imagenes/dogs2.png");
         painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
     }
     else if(numeroAleatorio==3){
-        setImagen(":/Imagenes/tipo3.png");
+        setImagen(":/Imagenes/dogs3.png");
         painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
     }
 }
@@ -122,4 +123,12 @@ void Enemigo::actualizarPosicion(int jugadorX, int jugadorY)
 void Enemigo::recibirDano()
 {
     setSalud(getSalud()-1);
+}
+
+void Enemigo::posicion(int x, int y)
+{
+    posX = x;
+    posY = y;
+    velocidad = 20;
+    setPos(posX, posY);
 }

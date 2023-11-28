@@ -98,8 +98,9 @@ void MainWindow::on_btn_Jugar_clicked()
     ui->btb_Instrucciones->hide();
     ui->btb_Salir->hide();
     ui->btn_Regresar->hide();
-    string linea;
-    ifstream archivoLectura;
+
+    string linea, linea2;
+    ifstream archivoLectura, archivoLectura2;
     archivoLectura.open("portales.txt");
     if(archivoLectura.is_open()){
         while(getline(archivoLectura, linea)){
@@ -122,9 +123,15 @@ void MainWindow::on_btn_Jugar_clicked()
         }
     }
 
+    //hacer que se generen varios perros y colocarlos en diferentes posiciones, además de agregarlos a una lista
+
     jugador = new Jugador();
     scene2->addItem(jugador);
     jugador->posicion(300,100);
+
+    perro = new Enemigo();
+    scene2->addItem(perro);
+    perro->posicion(200,50);
 
     ui->label->show();
     ui->label_2->show();
