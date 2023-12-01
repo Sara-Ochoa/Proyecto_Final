@@ -15,14 +15,13 @@ private:
     int posX;
     int posY;
     int velocidad;
-    int puntos;
+    int dano;
     float filas,columnas;
     float ancho,alto;
     QString imagen;
+    int tipo;
 public:
     explicit Enemigo(QObject *parent = nullptr);
-    Enemigo(int x, int y, int v, int p);
-    Enemigo(int x, int y, int v);
     QTimer *timer;
     QPixmap *pixmap;
 
@@ -41,6 +40,15 @@ public:
 
     int getPuntos() const;
     void setPuntos(int newPuntos);
+
+    float getFilas() const;
+    void setFilas(float newFilas);
+
+    int getTipo() const;
+    void setTipo(int newTipo);
+
+    int getDano() const;
+    void setDano(int newDano);
 
 signals:
 

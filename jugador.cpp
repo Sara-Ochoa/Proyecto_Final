@@ -20,30 +20,63 @@ void Jugador::setPath(const QString &newPath)
     path = newPath;
 }
 
+int Jugador::getPosX() const
+{
+    return posX;
+}
+
+void Jugador::setPosX(int newPosX)
+{
+    posX = newPosX;
+}
+
+int Jugador::getPosY() const
+{
+    return posY;
+}
+
+void Jugador::setPosY(int newPosY)
+{
+    posY = newPosY;
+}
+
+int Jugador::getPuntos() const
+{
+    return puntos;
+}
+
+void Jugador::setPuntos(int newPuntos)
+{
+    puntos = newPuntos;
+}
+
+int Jugador::getSalud() const
+{
+    return salud;
+}
+
+void Jugador::setSalud(int newSalud)
+{
+    salud = newSalud;
+}
+
 Jugador::Jugador(QObject *parent) : QObject{parent}
 {//constructor
     timer = new QTimer();
+    salud = 15;
+    velocidad = 8;
     columnas = 0;
     filas = 0;
+    puntos = 0;
     pixmap = new QPixmap(":/Imagenes/Morty.png");
 
     //dimensiones de cada una de las imagenes
     ancho = 131.25;
-    alto = 168.25;
+    alto = 160.25;
 
     timer->start(250); //modifica la velocidad en que itera entre las imagenes
     connect(timer, &QTimer::timeout, this,&Jugador::Actualizacion);
 }
-
-
-/*
-Jugador::Jugador(int w, int h){
-    path = ":/Imagenes/Rick_Right.png";
-    pixmap_N2 = new QPixmap(path);
-    this->w = w;
-    this->h = h;
-}
-*/
 
 void Jugador::Actualizacion()
 {
@@ -93,6 +126,5 @@ void Jugador::posicion(int x, int y)
 {
     posX = x;
     posY = y;
-    velocidad = 20;
     setPos(posX, posY);
 }

@@ -8,7 +8,6 @@ using namespace std;
 
 Portal::Portal(int x, int y,  int r)
 {
-
     posx=x;
     posy=y;
     radio=r;
@@ -24,28 +23,6 @@ void Portal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 {
     QPixmap pixmap(":/Imagenes/portal.png");
     painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
-
-    /*
-    mt19937 generador(random_device{}());
-    uniform_int_distribution<int> distribucion(1, 4);
-    int numeroAleatorio = distribucion(generador);
-
-    if(numeroAleatorio ==1){
-        QPixmap pixmap(":/Imagenes/tipo1.png");
-        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
-    }
-    else if(numeroAleatorio==2){
-        QPixmap pixmap(":/Imagenes/tipo2.png");
-        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
-    }
-    else if(numeroAleatorio==3){
-        QPixmap pixmap(":/Imagenes/tipo3.png");
-        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
-    }
-    else if(numeroAleatorio==4){
-        QPixmap pixmap(":/Imagenes/portal.png");
-        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
-    }*/
 }
 
 /*

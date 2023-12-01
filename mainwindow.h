@@ -9,6 +9,7 @@
 #include "portal.h"
 #include <QList>
 #include <QKeyEvent>
+#include <QTimer>
 
 #include "jugador.h"
 #include "enemigo.h"
@@ -27,7 +28,6 @@ public:
 
 private slots:
     void keyPressEvent(QKeyEvent *ev);
-    //void keyPressEvent_N2(QKeyEvent *ev);
 
     void on_btn_Regresar_clicked();
 
@@ -36,6 +36,10 @@ private slots:
     void on_btb_Instrucciones_clicked();
 
     void on_btb_Salir_clicked();
+
+    void seguimiento();
+
+    void colPortal();
 
 private:
     Ui::MainWindow *ui;
@@ -47,8 +51,12 @@ private:
     QPixmap *fondoNivel1;
     QList<Portal*> portales;
     QList<Enemigo*> enemigos;
-    Enemigo *perro;
+    QTimer *timer;
+    QTimer *timer1;
 
     Jugador *jugador;
+
+    void principal();
+
 };
 #endif // MAINWINDOW_H

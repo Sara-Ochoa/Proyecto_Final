@@ -4,13 +4,45 @@
 
 using namespace std;
 
+float Enemigo::getFilas() const
+{
+    return filas;
+}
+
+void Enemigo::setFilas(float newFilas)
+{
+    filas = newFilas;
+}
+
+int Enemigo::getTipo() const
+{
+    return tipo;
+}
+
+void Enemigo::setTipo(int newTipo)
+{
+    tipo = newTipo;
+}
+
+int Enemigo::getDano() const
+{
+    return dano;
+}
+
+void Enemigo::setDano(int newDano)
+{
+    dano = newDano;
+}
+
 Enemigo::Enemigo(QObject *parent) : QObject{parent}
 {
     timer = new QTimer();
     columnas = 0;
     filas = 0;
-    imagen = ":/Imagenes/dogs2.png";
-    pixmap = new QPixmap(imagen);
+
+    mt19937 generador(random_device{}());
+    uniform_int_distribution<int> distribucion(1, 3);
+    tipo = distribucion(generador);
 
     //dimensiones de cada una de las imagenes
     ancho = 50;
@@ -40,16 +72,6 @@ void Enemigo::setImagen(const QString &newImagen)
     imagen = newImagen;
 }
 
-int Enemigo::getPuntos() const
-{
-    return puntos;
-}
-
-void Enemigo::setPuntos(int newPuntos)
-{
-    puntos = newPuntos;
-}
-
 void Enemigo::Actualizacion()
 {
     columnas += 50;
@@ -66,41 +88,18 @@ QRectF Enemigo::boundingRect() const
 
 void Enemigo::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    //painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
-    mt19937 generador(random_device{}());
-    uniform_int_distribution<int> distribucion(1, 3);
-    int numeroAleatorio = distribucion(generador);
-
-    if(numeroAleatorio ==1){
-        setImagen(":/Imagenes/dogs1.png");
-        //settearle los puntos
+    if(tipo == 1){
+        pixmap = new QPixmap(":/Imagenes/dogs1.png");
         painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
     }
-    else if(numeroAleatorio==2){
-        setImagen(":/Imagenes/dogs2.png");
+    else if(tipo == 2){
+        pixmap = new QPixmap(":/Imagenes/dogs2.png");
         painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
     }
-    else if(numeroAleatorio==3){
-        setImagen(":/Imagenes/dogs3.png");
+    else if(tipo == 3){
+        pixmap = new QPixmap(":/Imagenes/dogs3.png");
         painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
     }
-}
-
-Enemigo::Enemigo(int x, int y, int v, int p)
-{
-    posX = x;
-    posY = y;
-    velocidad = v;
-    puntos = p;
-}
-
-
-Enemigo::Enemigo(int x, int y, int v)
-{
-    posX = x;
-    posY = y;
-    velocidad = v;
-    salud = 10;
 }
 
 void Enemigo::actualizarPosicion(int jugadorX, int jugadorY)
@@ -113,11 +112,74 @@ void Enemigo::actualizarPosicion(int jugadorX, int jugadorY)
     double distancia = sqrt(dx * dx + dy * dy);
 
     // Si el enemigo está lo suficientemente cerca del jugador, persigue al jugador
-    if (distancia < velocidad)
+    if (distancia/8 < velocidad)
     {
         posX += (velocidad * dx) / distancia;
         posY += (velocidad * dy) / distancia;
+        if(dx < 0 && dy < 0)
+        {
+            // mueve izq arr, sprite izq
+            setFilas(75);
+        }
+        else if(dx > 0 && dy < 0)
+        {
+            // mueve derecha arr, sprite der
+            setFilas(150);
+        }
+        else if(dx < 0 && dy > 0)
+        {
+            // mueve izq ab, sprite
+            setFilas(225);
+        }
+        else if(dx > 0 && dy > 0)
+        {
+            // mueve derecha ab
+            setFilas(0);
+        }
+        else if(dx == 0 && dy > 0)
+        {
+            setFilas(0);
+        }
+        else if(dx == 0 && dy < 0)
+        {
+            setFilas(225);
+        }
+        else if(dx > 0 && dy == 0)
+        {
+            setFilas(150);
+        }
+        else if(dx < 0 && dy == 0)
+        {
+            setFilas(75);
+        }
     }
+    else{
+        mt19937 generador(random_device{}());
+        uniform_int_distribution<int> distribucion(0, 3);
+        int d = distribucion(generador);
+        if(d==0 && x() >= 0 && x() <= 800)
+        {
+            posX += velocidad/2;
+            setFilas(150);
+        }
+        else if(d==1 && x() >= 0 && x() <= 800)
+        {
+            posX -= velocidad/2;
+            setFilas(75);
+        }
+        else if(d==2 && y() >= 0 && y() <= 500)
+        {
+            posY += velocidad/2;
+            setFilas(0);
+        }
+        else if(d==3 && y() >= 0 && y() <= 500)
+        {
+            posY -= velocidad/2;
+            setFilas(225);
+        }
+    }
+
+    setPos(posX, posY);
 }
 
 void Enemigo::recibirDano()
@@ -129,6 +191,20 @@ void Enemigo::posicion(int x, int y)
 {
     posX = x;
     posY = y;
-    velocidad = 20;
+    if(tipo == 1)
+    {
+        velocidad = 20;
+        dano = 5;
+    }
+    else if(tipo == 2)
+    {
+        velocidad = 10;
+        dano = 15;
+    }
+    else if(tipo == 3)
+    {
+        velocidad = 15;
+        dano = 10;
+    }
     setPos(posX, posY);
 }

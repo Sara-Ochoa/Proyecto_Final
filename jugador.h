@@ -20,7 +20,6 @@ private:
     int velocidad;
     float filas,columnas;
     float ancho,alto;
-    //int w,h;
     QString path;
 
 public:
@@ -50,6 +49,22 @@ public:
 
     QString getPath() const;
     void setPath(const QString &newPath);
+
+    int getPosX() const;
+
+    int getVelocidad() const;
+    void setVelocidad(int newVelocidad);
+
+    void setPosX(int newPosX);
+
+    int getPosY() const;
+    void setPosY(int newPosY);
+
+    int getPuntos() const;
+    void setPuntos(int newPuntos);
+
+    int getSalud() const;
+    void setSalud(int newSalud);
 
 signals:
 
