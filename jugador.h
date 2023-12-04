@@ -18,12 +18,13 @@ private:
     int posX;
     int posY;
     int velocidad;
+    int nivel;
     float filas,columnas;
     float ancho,alto;
     QString path;
 
 public:
-    explicit Jugador(QObject *parent = nullptr);
+    explicit Jugador(QObject *parent = nullptr, int nivel = 0);
     //Jugador(int w, int h);
 
     QTimer *timer;
@@ -43,6 +44,7 @@ public:
     void recogerBalas();
     void morir();
     void recibirDano();
+    void pararTimer();
 
     float getFilas() const;
     void setFilas(float newFilas);
@@ -65,6 +67,10 @@ public:
 
     int getSalud() const;
     void setSalud(int newSalud);
+
+    int getNivel() const;
+
+    void setNivel(int newNivel);
 
 signals:
 

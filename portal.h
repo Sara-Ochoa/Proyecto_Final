@@ -4,13 +4,13 @@
 
 class Portal: public QGraphicsItem
 {
-    char tipo;
     int posx;
     int posy;
     int radio;
+    int tipo;
 
 public:
-    Portal(int x, int y,  int r);
+    Portal(int x, int y,  int r, int t);
     void abrirPortal();
     void llevarInicio();
     void eliminarPersonaje();

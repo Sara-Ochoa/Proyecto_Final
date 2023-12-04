@@ -10,6 +10,8 @@
 #include <QList>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QDebug>
+#include <random>
 
 #include "jugador.h"
 #include "enemigo.h"
@@ -41,6 +43,8 @@ private slots:
 
     void colPortal();
 
+    void portalesC();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene1;
@@ -53,10 +57,15 @@ private:
     QList<Enemigo*> enemigos;
     QTimer *timer;
     QTimer *timer1;
+    QTimer *timer2;
 
     Jugador *jugador;
+    Portal *portal1;
+    Portal *portal2;
+    Portal *portal3;
 
     void principal();
+    void nivel2();
 
 };
 #endif // MAINWINDOW_H

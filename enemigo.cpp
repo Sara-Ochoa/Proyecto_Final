@@ -157,22 +157,22 @@ void Enemigo::actualizarPosicion(int jugadorX, int jugadorY)
         mt19937 generador(random_device{}());
         uniform_int_distribution<int> distribucion(0, 3);
         int d = distribucion(generador);
-        if(d==0 && x() >= 0 && x() <= 800)
+        if(d==0 && x() >= 20 && x() <= 780)
         {
             posX += velocidad/2;
             setFilas(150);
         }
-        else if(d==1 && x() >= 0 && x() <= 800)
+        else if(d==1 && x() >= 20 && x() <= 780)
         {
             posX -= velocidad/2;
             setFilas(75);
         }
-        else if(d==2 && y() >= 0 && y() <= 500)
+        else if(d==2 && y() >= 20 && y() <= 480)
         {
             posY += velocidad/2;
             setFilas(0);
         }
-        else if(d==3 && y() >= 0 && y() <= 500)
+        else if(d==3 && y() >= 20 && y() <= 480)
         {
             posY -= velocidad/2;
             setFilas(225);

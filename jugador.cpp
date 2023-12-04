@@ -60,7 +60,17 @@ void Jugador::setSalud(int newSalud)
     salud = newSalud;
 }
 
-Jugador::Jugador(QObject *parent) : QObject{parent}
+int Jugador::getNivel() const
+{
+    return nivel;
+}
+
+void Jugador::setNivel(int newNivel)
+{
+    nivel = newNivel;
+}
+
+Jugador::Jugador(QObject *parent, int n) : QObject{parent}, nivel(n)
 {//constructor
     timer = new QTimer();
     salud = 15;
@@ -68,7 +78,6 @@ Jugador::Jugador(QObject *parent) : QObject{parent}
     columnas = 0;
     filas = 0;
     puntos = 0;
-    pixmap = new QPixmap(":/Imagenes/Morty.png");
 
     //dimensiones de cada una de las imagenes
     ancho = 131.25;
@@ -94,7 +103,16 @@ QRectF Jugador::boundingRect() const
 
 void Jugador::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
+    if(nivel == 1)
+    {
+        pixmap = new QPixmap(":/Imagenes/Morty.png");
+        painter->drawPixmap(-ancho/2, -alto/2, *pixmap, columnas, filas, ancho, alto);
+    }
+    else if(nivel == 2)
+    {
+        pixmap = new QPixmap(path);
+        painter->drawPixmap(boundingRect(), *pixmap, pixmap->rect());
+    }
 }
 
 
@@ -127,4 +145,11 @@ void Jugador::posicion(int x, int y)
     posX = x;
     posY = y;
     setPos(posX, posY);
+}
+
+void Jugador::pararTimer()
+{
+    disconnect(timer, SIGNAL(timeout()), this, SLOT(Actualizacion()));
+    timer->stop();
+    delete timer;
 }

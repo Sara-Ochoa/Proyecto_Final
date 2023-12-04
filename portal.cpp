@@ -6,11 +6,12 @@
 
 using namespace std;
 
-Portal::Portal(int x, int y,  int r)
+Portal::Portal(int x, int y,  int r, int t)
 {
     posx=x;
     posy=y;
     radio=r;
+    tipo = t;
     setPos(posx,posy);
 }
 
@@ -21,20 +22,14 @@ QRectF Portal::boundingRect() const
 
 void Portal::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QPixmap pixmap(":/Imagenes/portal.png");
-    painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    if(tipo == 1)
+    {
+        QPixmap pixmap(":/Imagenes/portal.png");
+        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    }
+    else if(tipo == 2)
+    {
+        QPixmap pixmap(":/Imagenes/portal4.png");
+        painter->drawPixmap(boundingRect(),pixmap,pixmap.rect());
+    }
 }
-
-/*
-#include <random>
-    mt19937 generador(random_device{}());
-    uniform_int_distribution<int> distribucion(1, 3);
-    int numeroAleatorio = distribucion(generador);
-
-if(numeroAleatorio ==1)
-*pixmap = new (:/perro1)
-else if(numeroAleatorio==2)
-*pixmap = new (:/perro2)
-else if(numeroAleatorio==3)
-*pixmap = new (:/perro2)
-*/
