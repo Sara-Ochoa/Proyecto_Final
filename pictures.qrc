@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Imagenes/Butch.png</file>
+        <file>Imagenes/dogs.png</file>
+        <file>Imagenes/dogs1.png</file>
+        <file>Imagenes/dogs2.png</file>
+        <file>Imagenes/dogs3.png</file>
+        <file>Imagenes/fondo.jpg</file>
+        <file>Imagenes/Morty.png</file>
+        <file>Imagenes/portada.jpg</file>
+        <file>Imagenes/portal.png</file>
+        <file>Imagenes/portal4.png</file>
+        <file>Imagenes/Rick.png</file>
+        <file>Imagenes/Rick_Left (1).png</file>
+        <file>Imagenes/Rick-Left.png</file>
+        <file>Imagenes/Rick-right.png</file>
+        <file>Imagenes/Teclas.png</file>
+        <file>Imagenes/textura1.jpg</file>
+    </qresource>
+</RCC>
