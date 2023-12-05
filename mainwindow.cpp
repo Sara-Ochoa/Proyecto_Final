@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
-    // Desactivar barras de desplazamiento
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -31,34 +30,46 @@ MainWindow::~MainWindow()
 void MainWindow::keyPressEvent(QKeyEvent *ev)
 {
     if(ev->key()==Qt::Key_W && jugador->getNivel() == 1){
-        jugador->setFilas(504.75);
-        jugador->moverArriba();
+        if(jugador->getPosY()>0)
+        {
+            jugador->setFilas(504.75);
+            jugador->moverArriba();
+        }
     }
     else if(ev->key()==Qt::Key_S && jugador->getNivel() == 1){
-        jugador->moverAbajo();
-        jugador->setFilas(0);
+        if(jugador->getPosY()<480)
+        {
+            jugador->moverAbajo();
+            jugador->setFilas(0);
+        }
     }
     else if(ev->key()==Qt::Key_D){
-        if(jugador->getNivel()==1){
-            jugador->moverDerecha();
-            jugador->setFilas(336.5);
-        }
-        else
+        if(jugador->getPosX()<740)
         {
-            jugador->moverDerecha();
-            jugador->setPath(":/Imagenes/Rick-right.png");
+            if(jugador->getNivel()==1){
+                jugador->moverDerecha();
+                jugador->setFilas(336.5);
+            }
+            else
+            {
+                jugador->moverDerecha();
+                jugador->setPath(":/Imagenes/Rick-right.png");
+            }
         }
     }
     else if(ev->key()==Qt::Key_A){
-        if(jugador->getNivel() == 1)
+        if(jugador->getPosX()>20)
         {
-            jugador->moverIzquierda();
-            jugador->setFilas(168.25);
-        }
-        else
-        {
-            jugador->moverIzquierda();
-            jugador->setPath(":/Imagenes/Rick-Left.png");
+            if(jugador->getNivel() == 1)
+            {
+                jugador->moverIzquierda();
+                jugador->setFilas(168.25);
+            }
+            else
+            {
+                jugador->moverIzquierda();
+                jugador->setPath(":/Imagenes/Rick-Left.png");
+            }
         }
     }
 }
@@ -75,7 +86,7 @@ void MainWindow::on_btn_Jugar_clicked()
     QImage imagenF(":/Imagenes/textura1.jpg");
     QBrush brochaF(imagenF);
     ui->graphicsView->setBackgroundBrush(brochaF);
-    scene2->setSceneRect(0,0,800,500);
+    scene2->setSceneRect(0,0, imagenF.width(), imagenF.height());
     ui->btn_Jugar->hide();
     ui->btb_Instrucciones->hide();
     ui->btb_Salir->hide();
@@ -121,7 +132,11 @@ void MainWindow::on_btn_Jugar_clicked()
                 }
                 index++;
             }
-            enemigos.push_back(new Enemigo());
+
+            mt19937 generador(random_device{}());
+            uniform_int_distribution<int> distribucion(1, 3);
+            int tipo = distribucion(generador);
+            enemigos.push_back(new Enemigo(this, tipo));
             scene2->addItem(enemigos.back());
             enemigos.back()->posicion(x,y);
         }
@@ -132,7 +147,7 @@ void MainWindow::on_btn_Jugar_clicked()
 
     jugador = new Jugador(this, 1);
     scene2->addItem(jugador);
-    jugador->posicion(300,100);
+    jugador->posicion(375,250);
     jugador->setScale(0.5);
 
     ui->lbl_vida->show();
@@ -180,6 +195,11 @@ void MainWindow::seguimiento()
     }
 }
 
+void MainWindow::seguirFinal()
+{
+    final->actualizarPosicion(jugador->getPosX(),jugador->getPosY());
+}
+
 void MainWindow::principal()
 {
     ui->graphicsView->setScene(scene1);
@@ -211,11 +231,26 @@ void MainWindow::nivel2()
     ui->btb_Salir->hide();
     ui->btn_Regresar->hide();
     ui->lbl_over->hide();
+    jugador->setVelocidad(15);
+    jugador->setScale(0.5);
+    jugador->posicion(50, 455);
+
+    final = new Enemigo(this, 4);
+    scene2->addItem(final);
+    final->posicion(650, 410);
+    final->pararTimer();
+
+    timer = new QTimer();
+    timer->start(200);
+    connect(timer, SIGNAL(timeout()),this,SLOT(seguirFinal()));
+    timer1 = new QTimer();
+    timer1->start(200);
+    connect(timer1, SIGNAL(timeout()),this,SLOT(finalC()));
 }
 
 void MainWindow::colPortal()
 {
-    if(jugador->getPuntos()>=0)
+    if(jugador->getPuntos()>=10)
     {
         disconnect(timer, SIGNAL(timeout()), this, SLOT(seguimiento()));
         disconnect(timer1, SIGNAL(timeout()), this, SLOT(colPortal()));
@@ -233,7 +268,7 @@ void MainWindow::colPortal()
         ui->lbl_puntaje->hide();
 
         mt19937 generador(random_device{}());
-        uniform_int_distribution<int> distribucion(1, 3);
+        uniform_int_distribution<int> distribucion(1, 6);
         int orden = distribucion(generador);
 
         if(orden == 1)
@@ -291,6 +326,7 @@ void MainWindow::colPortal()
             scene2->addItem(portal3);
         }
 
+        jugador->posicion(375, 375);
         timer2 = new QTimer();
         timer2->start(200);
         connect(timer2, SIGNAL(timeout()),this,SLOT(portalesC()));
@@ -341,7 +377,7 @@ void MainWindow::colPortal()
                     ui->lbl_vida->setText(" VIDA: " +QVariant(jugador->getSalud()).toString());
                     if(jugador->getSalud()>0)
                     {
-                        jugador->posicion(300,100);
+                        jugador->posicion(375,250);
                     }
                 }
             }
@@ -368,7 +404,7 @@ void MainWindow::colPortal()
         ui->lbl_puntaje->hide();
         QBrush brochaF(Qt::black);
         ui->graphicsView->setBackgroundBrush(brochaF);
-        ui->lbl_over->setText("GAME OVER");
+        ui->lbl_over->setText("  GAME OVER  ");
         ui->lbl_over->show();
         ui->btn_Regresar->show();
     }
@@ -396,6 +432,7 @@ void MainWindow::portalesC()
 
         jugador->pararTimer();
 
+
         nivel2();
     }
     else if(jugador->collidesWithItem(portal2))
@@ -420,7 +457,48 @@ void MainWindow::portalesC()
 
         QBrush brochaF(Qt::black);
         ui->graphicsView->setBackgroundBrush(brochaF);
-        ui->lbl_over->setText("BAD LUCK");
+        ui->lbl_over->setText("   BAD LUCK  ");
+        ui->lbl_over->show();
+        ui->btn_Regresar->show();
+    }
+}
+
+void MainWindow::finalC()
+{
+    if(jugador->getSalud() > 0)
+    {
+        if(jugador->collidesWithItem(final))
+        {
+            jugador->setSalud(jugador->getSalud()-(final->getDano()));
+            ui->lbl_vida->setText(" VIDA: " +QVariant(jugador->getSalud()).toString());
+            if(jugador->getPosX()<400)
+            {
+                jugador->posicion(600, jugador->getPosY());
+            }
+            else if(jugador->getPosX()>400)
+            {
+                jugador->posicion(200, jugador->getPosY());
+            }
+        }
+    }
+
+    if(jugador->getSalud() <= 0)
+    {
+        disconnect(timer, SIGNAL(timeout()), this, SLOT(seguimiento()));
+        disconnect(timer1, SIGNAL(timeout()), this, SLOT(colPortal()));
+        timer->stop();
+        timer1->stop();
+        delete timer;
+        delete timer1;
+        scene2->removeItem(jugador);
+        jugador->deleteLater();
+        scene2->removeItem(final);
+        final->deleteLater();
+        ui->lbl_vida->hide();
+        ui->lbl_puntaje->hide();
+        QBrush brochaF(Qt::black);
+        ui->graphicsView->setBackgroundBrush(brochaF);
+        ui->lbl_over->setText("  GAME OVER  ");
         ui->lbl_over->show();
         ui->btn_Regresar->show();
     }

@@ -41,18 +41,19 @@ private slots:
 
     void seguimiento();
 
+    void seguirFinal();
+
     void colPortal();
 
     void portalesC();
+
+    void finalC();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene1;
     QGraphicsScene *scene2;
-    QGraphicsScene *scene3;
     QGraphicsScene *scene4;
-    QPixmap *fondoInicio;
-    QPixmap *fondoNivel1;
     QList<Portal*> portales;
     QList<Enemigo*> enemigos;
     QTimer *timer;
@@ -63,6 +64,7 @@ private:
     Portal *portal1;
     Portal *portal2;
     Portal *portal3;
+    Enemigo *final;
 
     void principal();
     void nivel2();

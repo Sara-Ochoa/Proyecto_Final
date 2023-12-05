@@ -13,10 +13,9 @@ class Jugador : public QObject, public QGraphicsItem
 
 private:
     int salud;
-    int puntos;
-    int cantidadBalas;
     int posX;
     int posY;
+    int puntos;
     int velocidad;
     int nivel;
     float filas,columnas;
@@ -25,7 +24,6 @@ private:
 
 public:
     explicit Jugador(QObject *parent = nullptr, int nivel = 0);
-    //Jugador(int w, int h);
 
     QTimer *timer;
     QPixmap *pixmap;
@@ -40,37 +38,30 @@ public:
     void saltar();
     void posicion(int x, int y);
     void disparar();
-    void recogerVida();
-    void recogerBalas();
-    void morir();
-    void recibirDano();
     void pararTimer();
-
-    float getFilas() const;
-    void setFilas(float newFilas);
-
-    QString getPath() const;
-    void setPath(const QString &newPath);
-
-    int getPosX() const;
-
-    int getVelocidad() const;
-    void setVelocidad(int newVelocidad);
-
-    void setPosX(int newPosX);
-
-    int getPosY() const;
-    void setPosY(int newPosY);
-
-    int getPuntos() const;
-    void setPuntos(int newPuntos);
 
     int getSalud() const;
     void setSalud(int newSalud);
-
+    int getPosX() const;
+    void setPosX(int newPosX);
+    int getPosY() const;
+    void setPosY(int newPosY);
+    int getPuntos() const;
+    void setPuntos(int newPuntos);
+    int getVelocidad() const;
+    void setVelocidad(int newVelocidad);
     int getNivel() const;
-
     void setNivel(int newNivel);
+    float getFilas() const;
+    void setFilas(float newFilas);
+    float getColumnas() const;
+    void setColumnas(float newColumnas);
+    float getAncho() const;
+    void setAncho(float newAncho);
+    float getAlto() const;
+    void setAlto(float newAlto);
+    QString getPath() const;
+    void setPath(const QString &newPath);
 
 signals:
 

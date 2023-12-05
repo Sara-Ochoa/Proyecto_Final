@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QPixmap>
 #include <QPainter>
+#include <QDebug>
 
 class Enemigo : public QObject, public QGraphicsItem
 {
@@ -16,44 +17,58 @@ private:
     int posY;
     int velocidad;
     int dano;
+    int tipo;
+    double ace = -18.75;
+    double tiempo = 0.1;
+
     float filas,columnas;
     float ancho,alto;
-    QString imagen;
-    int tipo;
 public:
-    explicit Enemigo(QObject *parent = nullptr);
+    explicit Enemigo(QObject *parent = nullptr, int tipo = 0);
+
     QTimer *timer;
+    QTimer *timer1;
     QPixmap *pixmap;
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
 
     void actualizarPosicion(int jugadorX,int jugadorY);
-    void morir();
-    void recibirDano();
+    void posicion(int x, int y);
+    void pararTimer();
+
     int getSalud() const;
     void setSalud(int newSalud);
-    void posicion(int x, int y);
-
-    QString getImagen() const;
-    void setImagen(const QString &newImagen);
-
     int getPuntos() const;
     void setPuntos(int newPuntos);
-
     float getFilas() const;
     void setFilas(float newFilas);
-
     int getTipo() const;
     void setTipo(int newTipo);
-
     int getDano() const;
     void setDano(int newDano);
+    int getPosX() const;
+    void setPosX(int newPosX);
+    int getPosY() const;
+    void setPosY(int newPosY);
+    int getVelocidad() const;
+    void setVelocidad(int newVelocidad);
+    double getAce() const;
+    void setAce(double newAce);
+    double getTiempo() const;
+    void setTiempo(double newTiempo);
+    float getColumnas() const;
+    void setColumnas(float newColumnas);
+    float getAncho() const;
+    void setAncho(float newAncho);
+    float getAlto() const;
+    void setAlto(float newAlto);
 
 signals:
 
 public slots:
     void Actualizacion();
+    void salto();
 };
 
 #endif // ENEMIGO_H

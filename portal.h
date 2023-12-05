@@ -11,11 +11,17 @@ class Portal: public QGraphicsItem
 
 public:
     Portal(int x, int y,  int r, int t);
-    void abrirPortal();
-    void llevarInicio();
-    void eliminarPersonaje();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
+
+    int getPosx() const;
+    void setPosx(int newPosx);
+    int getPosy() const;
+    void setPosy(int newPosy);
+    int getRadio() const;
+    void setRadio(int newRadio);
+    int getTipo() const;
+    void setTipo(int newTipo);
 };
 
 #endif // PORTAL_H

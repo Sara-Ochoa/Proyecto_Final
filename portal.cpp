@@ -6,6 +6,46 @@
 
 using namespace std;
 
+int Portal::getPosx() const
+{
+    return posx;
+}
+
+void Portal::setPosx(int newPosx)
+{
+    posx = newPosx;
+}
+
+int Portal::getPosy() const
+{
+    return posy;
+}
+
+void Portal::setPosy(int newPosy)
+{
+    posy = newPosy;
+}
+
+int Portal::getRadio() const
+{
+    return radio;
+}
+
+void Portal::setRadio(int newRadio)
+{
+    radio = newRadio;
+}
+
+int Portal::getTipo() const
+{
+    return tipo;
+}
+
+void Portal::setTipo(int newTipo)
+{
+    tipo = newTipo;
+}
+
 Portal::Portal(int x, int y,  int r, int t)
 {
     posx=x;

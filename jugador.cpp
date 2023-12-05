@@ -70,8 +70,48 @@ void Jugador::setNivel(int newNivel)
     nivel = newNivel;
 }
 
+int Jugador::getVelocidad() const
+{
+    return velocidad;
+}
+
+void Jugador::setVelocidad(int newVelocidad)
+{
+    velocidad = newVelocidad;
+}
+
+float Jugador::getColumnas() const
+{
+    return columnas;
+}
+
+void Jugador::setColumnas(float newColumnas)
+{
+    columnas = newColumnas;
+}
+
+float Jugador::getAncho() const
+{
+    return ancho;
+}
+
+void Jugador::setAncho(float newAncho)
+{
+    ancho = newAncho;
+}
+
+float Jugador::getAlto() const
+{
+    return alto;
+}
+
+void Jugador::setAlto(float newAlto)
+{
+    alto = newAlto;
+}
+
 Jugador::Jugador(QObject *parent, int n) : QObject{parent}, nivel(n)
-{//constructor
+{
     timer = new QTimer();
     salud = 15;
     velocidad = 8;
@@ -114,7 +154,6 @@ void Jugador::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
         painter->drawPixmap(boundingRect(), *pixmap, pixmap->rect());
     }
 }
-
 
 void Jugador::moverArriba()
 {
